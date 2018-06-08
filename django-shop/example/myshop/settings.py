@@ -24,13 +24,13 @@ import six
 SHOP_APP_LABEL = 'myshop'
 BASE_DIR = os.path.dirname(__file__)
 
-SHOP_TUTORIAL = os.environ.get('DJANGO_SHOP_TUTORIAL')
-if SHOP_TUTORIAL is None:
+SHOP_TUTORIAL = 'polymorphic'
+'''if SHOP_TUTORIAL is None:
     raise ImproperlyConfigured("Environment variable DJANGO_SHOP_TUTORIAL is not set")
 if SHOP_TUTORIAL not in ['commodity', 'i18n_commodity', 'smartcard', 'i18n_smartcard',
                          'i18n_polymorphic', 'polymorphic']:
     msg = "Environment variable DJANGO_SHOP_TUTORIAL has an invalid value `{}`"
-    raise ImproperlyConfigured(msg.format(SHOP_TUTORIAL))
+    raise ImproperlyConfigured(msg.format(SHOP_TUTORIAL))'''
 
 # Root directory for this django project
 PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.path.pardir))
@@ -60,7 +60,7 @@ SITE_ID = 1
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Europe/Vienna'
+TIME_ZONE = 'America/Boise'
 
 USE_THOUSAND_SEPARATOR = True
 
@@ -68,7 +68,7 @@ USE_THOUSAND_SEPARATOR = True
 
 # replace django.contrib.auth.models.User by implementation
 # allowing to login via email address
-AUTH_USER_MODEL = 'email_auth.User'
+#AUTH_USER_MODEL = 'email_auth.User'
 
 AUTH_PASSWORD_VALIDATORS = [{
     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -124,6 +124,7 @@ INSTALLED_APPS = [
     'shop',
     'shop_stripe',
     'myshop',
+    'shop_paypal',
 ]
 if SHOP_TUTORIAL in ['i18n_commodity', 'i18n_smartcard', 'i18n_polymorphic']:
     INSTALLED_APPS.append('parler')
@@ -308,7 +309,7 @@ if REDIS_HOST:
             'LOCATION': 'redis://{}:6379/1'.format(REDIS_HOST),
              "OPTIONS": {
                  "PICKLE_VERSION": PICKLE_V,                                                                                                
-	         }
+}
         },
         'compressor': {
             'BACKEND': 'redis_cache.RedisCache',
@@ -640,6 +641,7 @@ SHOP_CART_MODIFIERS.extend([
     'myshop.modifiers.PostalShippingModifier',
     'myshop.modifiers.CustomerPickupModifier',
     'shop.modifiers.defaults.PayInAdvanceModifier',
+    'shop_paypal.modifiers.PaymentModifier',
 ])
 
 SHOP_EDITCART_NG_MODEL_OPTIONS = "{updateOn: 'default blur', debounce: {'default': 2500, 'blur': 0}}"
@@ -647,6 +649,7 @@ SHOP_EDITCART_NG_MODEL_OPTIONS = "{updateOn: 'default blur', debounce: {'default
 SHOP_ORDER_WORKFLOWS = [
     'shop.payment.defaults.ManualPaymentWorkflowMixin',
     'shop.payment.defaults.CancelOrderWorkflowMixin',
+    'shop_paypal.payment.OrderWorkflowMixin',
 ]
 
 if 'shop_stripe' in INSTALLED_APPS:
@@ -662,10 +665,19 @@ if SHOP_TUTORIAL in ['i18n_polymorphic', 'polymorphic']:
 else:
     SHOP_ORDER_WORKFLOWS.append('shop.shipping.defaults.CommissionGoodsWorkflowMixin')
 
+# Add your account's pk_test & sk_test key
 SHOP_STRIPE = {
     'PUBKEY': 'pk_test_HlEp5oZyPonE21svenqowhXp',
     'APIKEY': 'sk_test_xUdHLeFasmOUDvmke4DHGRDP',
     'PURCHASE_DESCRIPTION': _("Thanks for purchasing at MyShop"),
+}
+
+# Add Paypal API Content Here
+SHOP_PAYPAL = {
+    'API_ENDPOINT': '',
+    'MODE': '', # sandbox || live
+    'CLIENT_ID': '',
+    'CLIENT_SECRET': '',
 }
 
 try:

@@ -8,10 +8,10 @@
 	{% include "./form-messages.html" %}
 
 	<div class="form-group has-feedback" style="margin-bottom: 10px">
-		<label class="control-label">{% trans "Your e-mail address" %}</label>
+		<label class="control-label">{% trans "Your username" %}</label>
 		<div class="input-group" ng-class="hasError('username')">
 			<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-			<input class="form-control" name="username" ng-model="form_data.username" value="" ng-required="true" placeholder="{% trans 'Email or Username' %}" />
+			<input class="form-control" name="username" ng-model="form_data.username" value="" ng-required="true" placeholder="{% trans 'Username' %}" />
 		</div>
 		<ul ng-show="{{ form_name }}.username.$dirty && {{ form_name }}.username.$touched" class="djng-field-errors" ng-cloak>
 			<li ng-show="{{ form_name }}.username.$error.required" class="invalid">{% trans "This field is required." %}</li>

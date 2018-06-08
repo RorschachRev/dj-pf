@@ -40,6 +40,8 @@ class Product(CMSPageReferenceMixin, BaseProduct):
     manufacturer = models.ForeignKey(
         Manufacturer,
         verbose_name=_("Manufacturer"),
+        null=True,
+        blank=True,
     )
 
     # controlling the catalog
@@ -52,6 +54,7 @@ class Product(CMSPageReferenceMixin, BaseProduct):
         'cms.Page',
         through=ProductPage,
         help_text=_("Choose list view this product shall appear on."),
+        blank=True,
     )
 
     images = models.ManyToManyField(

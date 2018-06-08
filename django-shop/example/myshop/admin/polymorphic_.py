@@ -16,6 +16,7 @@ from polymorphic.admin import (PolymorphicParentModelAdmin, PolymorphicChildMode
 from shop.admin.product import CMSPageAsCategoryMixin, ProductImageInline, InvalidateProductCacheMixin, CMSPageFilter
 
 from myshop.models import Product, Commodity, SmartCard, SmartPhoneVariant, SmartPhoneModel
+from myshop.models.polymorphic_.membership import Membership
 from myshop.models.polymorphic_.smartphone import OperatingSystem
 
 
@@ -88,3 +89,15 @@ class ProductAdmin(PolymorphicSortableAdminMixin, PolymorphicParentModelAdmin):
     def get_price(self, obj):
         return str(obj.get_real_instance().get_price(None))
     get_price.short_description = _("Price starting at")
+
+@admin.register(Membership)
+class MembershipAdmin(InvalidateProductCacheMixin, SortableAdminMixin, FrontendEditableAdminMixin, PlaceholderAdminMixin,
+                     CMSPageAsCategoryMixin, admin.ModelAdmin):
+    """
+    Since our Membership model inherits from Commodity, we have to redefine its admin class.
+    """
+    base_model = Commodity
+    fields = ['product_name', 'slug', 'product_code', 'unit_price', 'active', 'caption', 'manufacturer', 'signup_date']
+    filter_horizontal = ('cms_pages',)
+    inlines = (ProductImageInline,)
+    prepopulated_fields = {'slug': ['product_name']}
