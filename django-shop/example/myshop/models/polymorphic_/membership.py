@@ -34,7 +34,7 @@ class Membership(Product):
         default = timezone.now,
     )
     
-    profile = models.ForeignKey(Profile)
+    profile = models.ForeignKey(Profile, null=True, blank=True)
 
     # controlling the catalog
     placeholder = PlaceholderField("Membership Details")
