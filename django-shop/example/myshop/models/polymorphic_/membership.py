@@ -8,7 +8,7 @@ from cms.models.fields import PlaceholderField
 
 from shop.money.fields import MoneyField
 from .product import Product
-from django.contrib.auth.models import Profile
+from django.contrib.auth.models import User
 
 from django.utils import timezone
 
@@ -34,7 +34,7 @@ class Membership(Product):
         default = timezone.now,
     )
     
-    profile = models.ForeignKey(Profile, null=True, blank=True)
+    profile = models.ForeignKey(User, null=True, blank=True)
 
     # controlling the catalog
     placeholder = PlaceholderField("Membership Details")
