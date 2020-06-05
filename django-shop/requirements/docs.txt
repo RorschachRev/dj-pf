@@ -1,6 +1,6 @@
 -r common.txt
 enum34
-django==1.10.7
+django==1.11.29
 Sphinx==1.4.5
 sphinx-rtd-theme==0.1.9
 beautifulsoup4==4.4.1
