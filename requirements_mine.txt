@@ -51,7 +51,7 @@ libsass==0.12.3
 oauthlib==1.0.3
 olefile==0.45.1
 paypalrestsdk==1.13.1
-Pillow==4.3.0
+Pillow==8.1.1
 pkg-resources==0.0.0
 pycparser==2.18
 pyOpenSSL==18.0.0
