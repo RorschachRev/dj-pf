@@ -4,7 +4,7 @@ django==1.10.7
 Sphinx==1.4.5
 sphinx-rtd-theme==0.1.9
 beautifulsoup4==4.4.1
-Jinja2==2.8
+Jinja2==2.11.3
 MarkupSafe==0.23
 alabaster==0.7.9
 babel==2.3.4
