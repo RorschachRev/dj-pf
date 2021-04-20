@@ -11,4 +11,4 @@ pbr==1.10.0
 stripe==1.53.0
 djangoshop-stripe<0.13
 pluggy==0.5.2
-py==1.4.30
+py==1.10.0
