@@ -26,7 +26,7 @@ djangocms-text-ckeditor==3.4.0
 djangorestframework==3.7.7
 django-formtools==2.1
 drf-haystack==1.6.1
-certifi==2017.11.5
+certifi==2022.12.7
 chardet==3.0.4
 easy-thumbnails==2.5
 elasticsearch==1.7.0
